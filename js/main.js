@@ -1,45 +1,49 @@
-$('#p1,#p2,#p3,#p4,#p5').hover(function(e){
-  $('input[name=textinput]').val($(this).text());
+/**
+* @package Helix3 Framework
+* @author L.THEME http://www.ltheme.com
+* @copyright Copyright (c) 2010 - 2015 L.THEME
+* @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
+*/
+
+jQuery(function($) {
+    $('#offcanvas-toggler').on('click', function(event){
+        event.preventDefault();
+        $('body').toggleClass('offcanvas');
+    });
+
+    $('.close-offcanvas').on('click', function(event){
+
+        $('body').removeClass('offcanvas');
+    });
+    $('.close-offcanvas').on('click', function(event){
+        event.stopPropagation();
+        $('body').removeClass('offcanvas');
+    });
+
+    //Mega Menu
+    $('.sp-megamenu-wrapper').parent().parent().css('position','static').parent().css('position', 'relative');
+    $('.sp-menu-full').each(function(){
+        $(this).parent().addClass('menu-justify');
+    });
+
+    //Sticky Menu
+    $(document).ready(function(){
+        $("body.sticky-header").find('#sp-header').sticky({topSpacing:0})
+    });
+
+    //Tooltip
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+    
+    //one page nav with smoth scroll and active nav
+    $('.sp-megamenu-parent, .nav.menu').onePageNav({
+        currentClass: 'active',
+        changeHash: false,
+        scrollSpeed: 900,
+        scrollOffset: 30,
+        scrollThreshold: 0.5,
+        filter: ':not(.no-scroll)'
+    });
+
 });
-
-
-
-(function($) {
-	"use strict";
-	function count($this){
-	var current = parseInt($this.html(), 10);
-	current = current + 1; /* Where 50 is increment */	
-	$this.html(++current);
-		if(current > $this.data('count')){
-			$this.html($this.data('count'));
-		} else {    
-			setTimeout(function(){count($this)}, 50);
-		}
-	}        	
-	$(".stat-count").each(function() {
-	  $(this).data('count', parseInt($(this).html(), 10));
-	  $(this).html('0');
-	  count($(this));
-	});
-})(jQuery);
-
-/*Scroll Effect*/
-
-			$(document).ready(function(){
-				
-				//Check to see if the window is top if not then display button
-				$(window).scroll(function(){
-					if ($(this).scrollTop() > 100) {
-						$('.button-totop').fadeIn();
-					} else {
-						$('.button-totop').fadeOut();
-					}
-				});
-				
-				//Click event to scroll to top
-				$('.button-totop').click(function(){
-					$('html, body').animate({scrollTop : 0},800);
-					return false;
-				});
-				
-			});
